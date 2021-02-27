@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="en">
-    <meta charset="UTF-8">
-    <title>Conference Webinar Sample</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://meet.jit.si/libs/lib-jitsi-meet.min.js"></script>
-    <script src="example.js" ></script>
-    <style>
-      .video-left {
-        width: 16vw;
-        z-index: 10;
-        top: 51%;
-        left: 10.5%;
-        position: absolute;
-      }
-      .video-center {
-        width: 16vw;
-        z-index: 10;
-        top: 49%;
-        left: 41.95%;
-        position: absolute;
-      }
-      .video-right {
-        width: 16vw;
-        z-index: 10;
-        top: 51%;
-        right: 11%;
-        position: absolute;
-      }
-    </style>
+  <meta charset="UTF-8">
+  <title>Conference Webinar Sample</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://meet.jit.si/libs/lib-jitsi-meet.min.js"></script>
+  <script src="example.js"></script>
+  <style>
+    .video-left {
+      width: 16vw;
+      z-index: 10;
+      top: 51%;
+      left: 10.5%;
+      position: absolute;
+    }
+
+    .video-center {
+      width: 16vw;
+      z-index: 10;
+      top: 49%;
+      left: 41.95%;
+      position: absolute;
+    }
+
+    .video-right {
+      width: 16vw;
+      z-index: 10;
+      top: 51%;
+      right: 11%;
+      position: absolute;
+    }
+  </style>
 </head>
+
 <body>
-    <!-- <form class="form-horizontal">
+  <!-- <form class="form-horizontal">
         <fieldset>
         <div class="form-group">
           <label class="col-md-4 control-label" for="textinput">Tenant</label>  
@@ -63,8 +67,8 @@
         </div>
         </fieldset>
     </form> -->
-    <img src="./asset.png" alt="background" style="height: 100%; width: 100%;"/>
-    <div class="row" style="top: 5%; left: 1%; position: absolute; z-index: 10;">
+  <img src="./asset.png" alt="background" style="height: 100%; width: 100%;" />
+  <div class="row" style="top: 5%; left: 1%; position: absolute; z-index: 10;">
     <div class="col-4">
       <button id="joinButton" type="button" name="singlebutton" class="btn btn-primary">Join</button>
     </div>
@@ -72,71 +76,17 @@
       <button id="leaveButton" type="button" name="singlebutton" class="btn btn-danger">Leave</button>
     </div>
   </div>
-    <!-- <video autoplay='1' id='localVideo1' class="video-left" src="./LOBBY.mp4"></video>
+  <!-- <video autoplay='1' id='localVideo1' class="video-left" src="./LOBBY.mp4"></video>
     <video autoplay='1' id='localVideo2' class="video-center" src="./LOBBY.mp4"></video>
     <video autoplay='1' id='localVideo3' class="video-right" src="./LOBBY.mp4"></video> -->
 
-<script>
-  // function autoSetInitialCredentials(){
-  //   document.getElementById('tenantInput').value = 'vpaas-magic-cookie-285d1d36bc7d4b2db21c3978b3451327';
-  //   document.getElementById('tokenInput').value = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtMjg1ZDFkMzZiYzdkNGIyZGIyMWMzOTc4YjM0NTEzMjcvMTA5MTRhLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDI2MDEwOSwibmJmIjoxNjE0MjUyOTA0LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtMjg1ZDFkMzZiYzdkNGIyZGIyMWMzOTc4YjM0NTEzMjciLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJnb29nbGUtb2F1dGgyfDEwODAyNDA1MDMxOTg3OTI1NTAwNCIsImF2YXRhciI6IiIsImVtYWlsIjoiaGFyejA5MDFAZ21haWwuY29tIn19fQ.fWPhtLiHm8FwSnHOrCGtGrNDR2FJu4loGdylnyd-SQgvRNnDxwDyb9anG0YmrsXdpAn3z2S2dDgAU4nX5BfQuiAFfeel1rUg1D2lEEQ85RNpdSkY6WZaTNaoDMRWVtpaWmAXp71uwWIGM3FMq0hw-GG3lt-me9ocjuqDhsRr5iQmKIqs5JcLKnKWIIaKuSk6vVghX1UcOyBVE29d53dNaTQGRA5mVtRHP8AG4ydtqLh4J4PCltJKD5l-BBQCY_16FBG9cbMHzA5oe0aokuapOlr23zFjE9qLQaY0mwlkBvNPBesfdCaIYtyQtn5nR-2Kq6vgoQX7ZRna3HHAZQ4A9w';
-  //   document.getElementById('roomInput').value = 'test';
-  // }
- var  elemLeft = document.getElementsByClassName('video-left')[0];
- elemLeft.addEventListener('click', function() {
-  if (elemLeft.requestFullscreen) {
-    elemLeft.requestFullscreen();
-      } else if (elemLeft.mozRequestFullScreen) {
-              /* Firefox */
-              elemLeft.mozRequestFullScreen();
-      } else if (elem.webkitRequestFullscreen) {
-              /* Chrome, Safari and Opera */
-              elemLeft.webkitRequestFullscreen();
-      } else if (elemLeft.msRequestFullscreen) {
-              /* IE/Edge */
-              elemLeft.msRequestFullscreen();
-      } else if (elem.webkitSupportsFullscreen) {
-        elemLeft.webkitEnterFullscreen();
-      }
- });
-
- var  elemCenter = document.getElementsByClassName('video-center')[0];
- elemCenter.addEventListener('click', function() {
-  if (elemCenter.requestFullscreen) {
-    elemCenter.requestFullscreen();
-      } else if (elemCenter.mozRequestFullScreen) {
-              /* Firefox */
-              elemCenter.mozRequestFullScreen();
-      } else if (elemCenter.webkitRequestFullscreen) {
-              /* Chrome, Safari and Opera */
-              elemCenter.webkitRequestFullscreen();
-      } else if (elemCenter.msRequestFullscreen) {
-              /* IE/Edge */
-              elemCenter.msRequestFullscreen();
-      } else if (elemCenter.webkitSupportsFullscreen) {
-        elemCenter.webkitEnterFullscreen();
-      }
- });
-
- var  elemRight = document.getElementsByClassName('video-right')[0];
- elemRight.addEventListener('click', function() {
-  if (elemRight.requestFullscreen) {
-    elemRight.requestFullscreen();
-      } else if (elemRight.mozRequestFullScreen) {
-              /* Firefox */
-              elemRight.mozRequestFullScreen();
-      } else if (elemRight.webkitRequestFullscreen) {
-              /* Chrome, Safari and Opera */
-              elemRight.webkitRequestFullscreen();
-      } else if (elemRight.msRequestFullscreen) {
-              /* IE/Edge */
-              elemRight.msRequestFullscreen();
-      } else if (elemRight.webkitSupportsFullscreen) {
-        elemRight.webkitEnterFullscreen();
-      }
- });
-  
-
-</script>
+  <!-- <script>
+    // function autoSetInitialCredentials(){
+    //   document.getElementById('tenantInput').value = 'vpaas-magic-cookie-285d1d36bc7d4b2db21c3978b3451327';
+    //   document.getElementById('tokenInput').value = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtMjg1ZDFkMzZiYzdkNGIyZGIyMWMzOTc4YjM0NTEzMjcvMTA5MTRhLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDI2MDEwOSwibmJmIjoxNjE0MjUyOTA0LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtMjg1ZDFkMzZiYzdkNGIyZGIyMWMzOTc4YjM0NTEzMjciLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJnb29nbGUtb2F1dGgyfDEwODAyNDA1MDMxOTg3OTI1NTAwNCIsImF2YXRhciI6IiIsImVtYWlsIjoiaGFyejA5MDFAZ21haWwuY29tIn19fQ.fWPhtLiHm8FwSnHOrCGtGrNDR2FJu4loGdylnyd-SQgvRNnDxwDyb9anG0YmrsXdpAn3z2S2dDgAU4nX5BfQuiAFfeel1rUg1D2lEEQ85RNpdSkY6WZaTNaoDMRWVtpaWmAXp71uwWIGM3FMq0hw-GG3lt-me9ocjuqDhsRr5iQmKIqs5JcLKnKWIIaKuSk6vVghX1UcOyBVE29d53dNaTQGRA5mVtRHP8AG4ydtqLh4J4PCltJKD5l-BBQCY_16FBG9cbMHzA5oe0aokuapOlr23zFjE9qLQaY0mwlkBvNPBesfdCaIYtyQtn5nR-2Kq6vgoQX7ZRna3HHAZQ4A9w';
+    //   document.getElementById('roomInput').value = 'test';
+    // }
+  </script> -->
 </body>
+
 </html>

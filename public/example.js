@@ -59,21 +59,21 @@ function onRemoteTrack(track) {
     }
     const idx = remoteTracks[participant].push(track);
     const id = participant + track.getType() + idx;
-    
+
     if (track.getType() === 'video') {
         // $('body').append(
         //             `<video autoplay='1' id='${participant}video${idx}' />`);
         const remoteTrackLength = Object.keys(remoteTracks).length;
-        if(remoteTrackLength % 2 === 1) {
+        if (remoteTrackLength % 2 === 1) {
             $('body').append(
                 `<video autoplay='1' id='${participant}video${idx}' name='videoCenter' class='video-center' />`);
-                localStorage.setItem('center-video', id);
-        } 
-        if(remoteTrackLength % 2 === 0) {
+            localStorage.setItem('center-video', id);
+        }
+        if (remoteTrackLength % 2 === 0) {
             $('body').append(
                 `<video autoplay='1' id='${participant}video${idx}' name='videRight' class='video-right' />`);
-                localStorage.setItem('right-video', id);
-        } 
+            localStorage.setItem('right-video', id);
+        }
     } else {
         $('body').append(
             `<audio autoplay='1' id='${participant}audio${idx}' />`);
@@ -88,14 +88,18 @@ function onConferenceJoined() {
     for (let i = 0; i < localTracks.length; i++) {
         room.addTrack(localTracks[i]);
     }
+
+    setTimeout(() => {
+        setFullscreenListener();
+    }, 3000);
 }
 
 
 function onUserLeft(id) {
     console.log('user left');
-    var el = document.getElementById(removepart+"video"+removeid);
-        el.remove();
-        console.log(el);
+    var el = document.getElementById(removepart + "video" + removeid);
+    el.remove();
+    console.log(el);
     if (!remoteTracks[id]) {
         return;
     }
@@ -105,7 +109,7 @@ function onUserLeft(id) {
         console.log('Element Id =>>' + id + ' ' + tracks[i].getParticipantId());
         // console.log("Element IDD ==>>"+tracks[i].getParticipantId()+"video"+1);
         tracks[i].detach($(`#${id}${tracks[i].getType()}`));
-        var el = document.getElementById(tracks[i].getParticipantId()+"video"+"2");
+        var el = document.getElementById(tracks[i].getParticipantId() + "video" + "2");
         el.remove();
     }
 }
@@ -127,7 +131,7 @@ function onConnectionSuccess() {
         id => {
             console.log(`user joined: id`);
         });
-    room.on(JitsiMeetJS.events.conference.USER_LEFT,onUserLeft);
+    room.on(JitsiMeetJS.events.conference.USER_LEFT, onUserLeft);
     room.join();
     room.on
 }
@@ -156,10 +160,10 @@ function disconnect() {
 function disconnect() {
     for (let i = 0; i < localTracks.length; i++) {
         localTracks[i].dispose();
-        var el = document.getElementById(removepart+"video"+removeid);
+        var el = document.getElementById(removepart + "video" + removeid);
         el.remove();
     }
-    
+
     if (room) {
         room.leave();
     }
@@ -179,10 +183,10 @@ $(window).bind('unload', disconnect);
 
 
 
-$(document).ready(function() {
+$(document).ready(function () {
     JitsiMeetJS.init();
 
-    $("#joinButton").click(function() {
+    $("#joinButton").click(function () {
         // const tenant = 'vpaas-magic-cookie-285d1d36bc7d4b2db21c3978b3451327';
         // roomName = 'merztest';
         options = buildOptions(roomName);
@@ -202,15 +206,74 @@ $(document).ready(function() {
 
         connection.connect();
 
-        JitsiMeetJS.createLocalTracks({ devices: [ 'audio', 'video' ] })
+        JitsiMeetJS.createLocalTracks({
+                devices: ['audio', 'video']
+            })
             .then(onLocalTracks)
             .catch(error => {
                 throw error;
             });
     });
 
-    $("#leaveButton").click(function() {
+    $("#leaveButton").click(function () {
         disconnect();
     })
-    
+
 });
+
+function setFullscreenListener() {
+
+    var elemLeft = document.getElementsByClassName('video-left')[0];
+    elemLeft.addEventListener('click', function () {
+        if (elemLeft.requestFullscreen) {
+            elemLeft.requestFullscreen();
+        } else if (elemLeft.mozRequestFullScreen) {
+            /* Firefox */
+            elemLeft.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) {
+            /* Chrome, Safari and Opera */
+            elemLeft.webkitRequestFullscreen();
+        } else if (elemLeft.msRequestFullscreen) {
+            /* IE/Edge */
+            elemLeft.msRequestFullscreen();
+        } else if (elem.webkitSupportsFullscreen) {
+            elemLeft.webkitEnterFullscreen();
+        }
+    });
+
+    var elemCenter = document.getElementsByClassName('video-center')[0];
+    elemCenter.addEventListener('click', function () {
+        if (elemCenter.requestFullscreen) {
+            elemCenter.requestFullscreen();
+        } else if (elemCenter.mozRequestFullScreen) {
+            /* Firefox */
+            elemCenter.mozRequestFullScreen();
+        } else if (elemCenter.webkitRequestFullscreen) {
+            /* Chrome, Safari and Opera */
+            elemCenter.webkitRequestFullscreen();
+        } else if (elemCenter.msRequestFullscreen) {
+            /* IE/Edge */
+            elemCenter.msRequestFullscreen();
+        } else if (elemCenter.webkitSupportsFullscreen) {
+            elemCenter.webkitEnterFullscreen();
+        }
+    });
+
+    var elemRight = document.getElementsByClassName('video-right')[0];
+    elemRight.addEventListener('click', function () {
+        if (elemRight.requestFullscreen) {
+            elemRight.requestFullscreen();
+        } else if (elemRight.mozRequestFullScreen) {
+            /* Firefox */
+            elemRight.mozRequestFullScreen();
+        } else if (elemRight.webkitRequestFullscreen) {
+            /* Chrome, Safari and Opera */
+            elemRight.webkitRequestFullscreen();
+        } else if (elemRight.msRequestFullscreen) {
+            /* IE/Edge */
+            elemRight.msRequestFullscreen();
+        } else if (elemRight.webkitSupportsFullscreen) {
+            elemRight.webkitEnterFullscreen();
+        }
+    });
+}
