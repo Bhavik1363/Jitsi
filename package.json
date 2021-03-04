@@ -1,0 +1,22 @@
+{
+  "name": "jitsi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bhavik1363/Jitsi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bhavik1363/Jitsi/issues"
+  },
+  "homepage": "https://github.com/Bhavik1363/Jitsi#readme",
+  "dependencies": {
+    "firebase": "^8.2.9"
+  }
+}
