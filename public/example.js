@@ -4,7 +4,7 @@
 // Required for side-effects
 // require("firebase/firestore");
 let options;
-let roomName = 'merztest2';
+let roomName = 'merztest3';
 let token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUvZGQ1ZTYwLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDg1MjU1MiwibmJmIjoxNjE0ODQ1MzQ3LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUiLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJhdXRoMHw2MDM3YjlkNmE0MjMyYTAwNjkxMWFlMzIiLCJhdmF0YXIiOiIiLCJlbWFpbCI6IiJ9fX0.JEXBiAmgN3jdaVQ-Tx8-MojZIr7MihylclNM-NzNLBHJ8dTFP4BdFqqJj3-MY8teOOyaMfJ2QYaWQkFX_mi5NeKIANsA-j2_8J1mu7mQlmbq-3zMSEyQxO9JY5ZeN1SY8j5cnq_4riGYBeoD4KmPXZB55KxNlct7JfXKXhdkL-bl9lWGb3vWRowCgCy_ZwF5UuBbWQ1aZuxCrqCc9oRyQkWj08HVb3TEJmaikD2S7I77sDfx3JCfrWHN8QUgwkzi95tQSDjX7M6j9ArTb_3DQwKoHEs0xTs18YSBJFRfBS5HvFGIb7AKPdenWun8Qk2AiyNJ-8yqkJtyCHVBjgXMwg';
 let tenant = 'vpaas-magic-cookie-88dfb7a7488f43a689e37d432fe97a85';
 let screenName = "";
@@ -42,7 +42,7 @@ function onLocalTracks(tracks) {
     for (let i = 0; i < localTracks.length; i++) {
         if (localTracks[i].getType() === 'video') {
             // $('#video-conatiner').append(`<video autoplay='1' id='localVideo${i}' />`);
-            $('body').append(`<video autoplay='1' id='localVideo${i} />`);
+            $('body').append(`<video autoplay='1' id='localVideo${i}' />`);
             localTracks[i].attach($(`#localVideo${i}`)[0]);
 
             // localStorage.setItem(tracks.getParticipantId(), `localVideo${i}`)
