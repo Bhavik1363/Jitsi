@@ -95,6 +95,22 @@ function onRemoteTrack(track) {
             `<video autoplay='1' id='${participant}video${idx}' />`);
         // localStorage.setItem(participant, id);
         // } 
+        var guestName = room.getParticipantById(participant);
+        if (guestName) {
+            if (guestName.getDisplayName()) {
+                console.log("Participant " + participant + " name " + guestName.getDisplayName());
+
+                if (guestName.getDisplayName() === 'center') {
+                    document.getElementById(id).classList.add('video-center');
+                } else if (guestName.getDisplayName() === 'left') {
+                    document.getElementById(id).classList.add('video-left');
+                } else if (guestName.getDisplayName() === 'right') {
+                    document.getElementById(id).classList.add('video-right');
+                }
+            }
+        } else {
+            console.error("Participant not found", participant);
+        }
         // if(remoteTrackLength % 2 === 0) {
         //     $('#video-container').append(
         //         `<video autoplay='1' id='${participant}video${idx}' name='videRight' class='video-right' />`);
@@ -105,22 +121,7 @@ function onRemoteTrack(track) {
             `<audio autoplay='1' id='${participant}audio${idx}' />`);
     }
     track.attach($(`#${id}`)[0]);
-    var guestName = room.getParticipantById(participant);
-    if (guestName) {
-        if (guestName.getDisplayName()) {
-            console.log("Participant " + participant + " name " + guestName.getDisplayName());
 
-            if (guestName.getDisplayName() === 'center') {
-                document.getElementById(id).classList.add('video-center');
-            } else if (guestName.getDisplayName() === 'left') {
-                document.getElementById(id).classList.add('video-left');
-            } else if (guestName.getDisplayName() === 'right') {
-                document.getElementById(id).classList.add('video-right');
-            }
-        }
-    } else {
-        console.error("Participant not found", participant);
-    }
 }
 
 
