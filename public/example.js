@@ -129,13 +129,21 @@ function onRemoteTrack(track) {
 function onConferenceJoined() {
     console.log('conference joined!');
     isJoined = true;
+
+    JitsiMeetJS.createLocalTracks({
+        devices: ['audio', 'video']
+    })
+    .then(onLocalTracks)
+    .catch(error => {
+        throw error;
+    });
     for (let i = 0; i < localTracks.length; i++) {
         room.addTrack(localTracks[i]);
     }
 
-    // setTimeout(() => {
-    //     setFullscreenListener();
-    // }, 3000);
+    setTimeout(() => {
+        setFullscreenListener();
+    }, 3000);
 }
 
 
@@ -292,13 +300,6 @@ function joinOnFixScreen(screenToJoin) {
 
     connection.connect();
 
-    JitsiMeetJS.createLocalTracks({
-            devices: ['audio', 'video']
-        })
-        .then(onLocalTracks)
-        .catch(error => {
-            throw error;
-        });
 }
 
 function setFullscreenListener() {
