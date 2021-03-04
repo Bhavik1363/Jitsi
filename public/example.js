@@ -3,9 +3,10 @@
 // const firebase = require("firebase");
 // Required for side-effects
 // require("firebase/firestore");
+{/* <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> */}
 let options;
 let roomName = 'merztest3';
-let token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUvZGQ1ZTYwLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDg1MjU1MiwibmJmIjoxNjE0ODQ1MzQ3LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUiLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJhdXRoMHw2MDM3YjlkNmE0MjMyYTAwNjkxMWFlMzIiLCJhdmF0YXIiOiIiLCJlbWFpbCI6IiJ9fX0.JEXBiAmgN3jdaVQ-Tx8-MojZIr7MihylclNM-NzNLBHJ8dTFP4BdFqqJj3-MY8teOOyaMfJ2QYaWQkFX_mi5NeKIANsA-j2_8J1mu7mQlmbq-3zMSEyQxO9JY5ZeN1SY8j5cnq_4riGYBeoD4KmPXZB55KxNlct7JfXKXhdkL-bl9lWGb3vWRowCgCy_ZwF5UuBbWQ1aZuxCrqCc9oRyQkWj08HVb3TEJmaikD2S7I77sDfx3JCfrWHN8QUgwkzi95tQSDjX7M6j9ArTb_3DQwKoHEs0xTs18YSBJFRfBS5HvFGIb7AKPdenWun8Qk2AiyNJ-8yqkJtyCHVBjgXMwg';
+let token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUvZGQ1ZTYwLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDg2MDYxMCwibmJmIjoxNjE0ODUzNDA1LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUiLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJhdXRoMHw2MDM3YjlkNmE0MjMyYTAwNjkxMWFlMzIiLCJhdmF0YXIiOiIiLCJlbWFpbCI6Im1vaGl0c2FpbmkxNzk1QGdtYWlsLmNvbSJ9fX0.jX5hxLxhw8C0gFfAWEWdgpDQG9EqA_wsT2D79pi32JW3yNwWJqB1wqRJfEmB_At0h5vqwIfal2QDzXpQgmSoDke8D-Q1ZIzXpFfWmjirx51YoeEozWyXRnTKYbpOyu6IOtdtt6sG6WdI4DpY3nt5yXCIWNSRdyOU9iHZ73wrMD4T5YSVDX6aQbfzyXXnYfFtz6KhC_4drKeBGqIIGx0w-z0X36rIQ0T9bx2KqwJMQiNFxDaA4Eql7d4H5oP7psaSt_wfs-w4vhnvKWDKW84j0OjTiQL_XnavjAIAxvQ4nlFWRc1EVuaO-09IdvdnnV6Ytaez-T0C46SiXJIv51aZ1w';
 let tenant = 'vpaas-magic-cookie-88dfb7a7488f43a689e37d432fe97a85';
 let screenName = "";
 
@@ -53,7 +54,7 @@ function onLocalTracks(tracks) {
         }
         if (isJoined) {
             room.addTrack(localTracks[i]);
-            setTimeout(() => {
+            // setTimeout(() => {
                 if (document.getElementById(`localVideo${i}`)) {
 
                     if (screenName === 'center') {
@@ -69,7 +70,7 @@ function onLocalTracks(tracks) {
                 } else {
                     console.error('Element not found localVideo', i);
                 }
-            }, 2000);
+            // }, 2000);
         }
     }
 }
@@ -215,8 +216,8 @@ function disconnect() {
     }
 }
 
-$(window).bind('beforeunload', disconnect);
-$(window).bind('unload', disconnect);
+// $(window).bind('beforeunload', disconnect);
+// $(window).bind('unload', disconnect);
 
 // $("#leaveButton").click(function(){
 //     console.log("Leave button clicked");
@@ -229,38 +230,38 @@ $(window).bind('unload', disconnect);
 $(document).ready(function () {
     JitsiMeetJS.init();
 
-    $("#joinButton").click(function () {
-        // const tenant = 'vpaas-magic-cookie-285d1d36bc7d4b2db21c3978b3451327';
-        // roomName = 'merztest';
-        options = buildOptions(roomName);
-        // token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtMjg1ZDFkMzZiYzdkNGIyZGIyMWMzOTc4YjM0NTEzMjcvMTA5MTRhLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDQxNTM4OSwibmJmIjoxNjE0NDA4MTg0LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtMjg1ZDFkMzZiYzdkNGIyZGIyMWMzOTc4YjM0NTEzMjciLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJnb29nbGUtb2F1dGgyfDEwODAyNDA1MDMxOTg3OTI1NTAwNCIsImF2YXRhciI6IiIsImVtYWlsIjoiaGFyejA5MDFAZ21haWwuY29tIn19fQ.hDTmW3dm5l8MYel_UmPjvPa69teZeVstaDrOiZdn92N9UlQ7zYXVeCmbrlRy0jX5H_9Xf-JgjUnnzJjooX8G2bzY566Y7YOBvKNgaqfM3X8bSEadSNmk6LMjFTGuIapgin_bRJxGhgBLcthbeYVfZ_xGo65-eKbNHDZrugJCzWFfty5l9yvZFsBm0-_KQ6jQZ8oISmRUY4J_Qowlz9BjBhbiLpAkw_gZGXlZnlEZEmkxDmTvqbzecEzQAdaf-PV0xrySa847RKc_hIrrQhttcfi9HGeZrwo05CcdYKKuZolnp6jIkof2bMIxt4YiNQL7CX9XN5vzZZG_yv_viuLC9w';
+    // $("#joinButton").click(function () {
+    //     // const tenant = 'vpaas-magic-cookie-285d1d36bc7d4b2db21c3978b3451327';
+    //     // roomName = 'merztest';
+    //     options = buildOptions(roomName);
+    //     // token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtMjg1ZDFkMzZiYzdkNGIyZGIyMWMzOTc4YjM0NTEzMjcvMTA5MTRhLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDQxNTM4OSwibmJmIjoxNjE0NDA4MTg0LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtMjg1ZDFkMzZiYzdkNGIyZGIyMWMzOTc4YjM0NTEzMjciLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJnb29nbGUtb2F1dGgyfDEwODAyNDA1MDMxOTg3OTI1NTAwNCIsImF2YXRhciI6IiIsImVtYWlsIjoiaGFyejA5MDFAZ21haWwuY29tIn19fQ.hDTmW3dm5l8MYel_UmPjvPa69teZeVstaDrOiZdn92N9UlQ7zYXVeCmbrlRy0jX5H_9Xf-JgjUnnzJjooX8G2bzY566Y7YOBvKNgaqfM3X8bSEadSNmk6LMjFTGuIapgin_bRJxGhgBLcthbeYVfZ_xGo65-eKbNHDZrugJCzWFfty5l9yvZFsBm0-_KQ6jQZ8oISmRUY4J_Qowlz9BjBhbiLpAkw_gZGXlZnlEZEmkxDmTvqbzecEzQAdaf-PV0xrySa847RKc_hIrrQhttcfi9HGeZrwo05CcdYKKuZolnp6jIkof2bMIxt4YiNQL7CX9XN5vzZZG_yv_viuLC9w';
 
-        connection = new JitsiMeetJS.JitsiConnection(null, token, options.connection);
+    //     connection = new JitsiMeetJS.JitsiConnection(null, token, options.connection);
 
-        connection.addEventListener(
-            JitsiMeetJS.events.connection.CONNECTION_ESTABLISHED,
-            onConnectionSuccess);
-        connection.addEventListener(
-            JitsiMeetJS.events.connection.CONNECTION_FAILED,
-            onConnectionFailed);
-        connection.addEventListener(
-            JitsiMeetJS.events.connection.CONNECTION_DISCONNECTED,
-            disconnect);
+    //     connection.addEventListener(
+    //         JitsiMeetJS.events.connection.CONNECTION_ESTABLISHED,
+    //         onConnectionSuccess);
+    //     connection.addEventListener(
+    //         JitsiMeetJS.events.connection.CONNECTION_FAILED,
+    //         onConnectionFailed);
+    //     connection.addEventListener(
+    //         JitsiMeetJS.events.connection.CONNECTION_DISCONNECTED,
+    //         disconnect);
 
-        connection.connect();
+    //     connection.connect();
 
-        JitsiMeetJS.createLocalTracks({
-                devices: ['audio', 'video']
-            })
-            .then(onLocalTracks)
-            .catch(error => {
-                throw error;
-            });
-    });
+    //     JitsiMeetJS.createLocalTracks({
+    //             devices: ['audio', 'video']
+    //         })
+    //         .then(onLocalTracks)
+    //         .catch(error => {
+    //             throw error;
+    //         });
+    // });
 
-    $("#leaveButton").click(function () {
-        disconnect();
-    })
+    // $("#leaveButton").click(function () {
+    //     disconnect();
+    // })
 
     // db.collection("videoPosition")
     // .onSnapshot((querySnapshot) => {
