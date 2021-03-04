@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "kv-test2",
+    "site": "merz-meeting",
     "public": "public",
     "ignore": [
       "firebase.json",

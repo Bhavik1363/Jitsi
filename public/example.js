@@ -4,10 +4,17 @@
 // Required for side-effects
 // require("firebase/firestore");
 let options;
-let roomName = 'merztest1';
-let token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUvZGQ1ZTYwLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDg1MjU1NywibmJmIjoxNjE0ODQ1MzUyLCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUiLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJhdXRoMHw2MDM3YjlkNmE0MjMyYTAwNjkxMWFlMzIiLCJhdmF0YXIiOiIiLCJlbWFpbCI6Im1vaGl0c2FpbmkxNzk1QGdtYWlsLmNvbSJ9fX0.ubhMXR8BkLSEryMEoIfSrn0WRVJRMeoDo9sBgCfuarzgJImL4NM3DCJ4nCCARDPnyYOvYTqgWkPiuXyIvCo0ZOqLPkvjKBb_bOvi-lujPEcQQVLQHj4wR2vb8P4gAAvyqslUWxINlK_5dcFep24iJCzZ0F-VQ53LMtZbwoXjMcl9LMlqxKv7_dN-siUz02Tw7K93PBxJvhnAy74BbPtJKEL0w16dXazjuorc2VexjhbHd6flpvdy-9BClWkFrX56_PTvNafFb1tNYzIrY287VpnMgTh6-dG0AclWuJzms1V7393D2mVmxe9A7wT37wQKBM8XBUqdl_wfaFyWu5W3nQ';
+let roomName = 'merztest2';
+let token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUvZGQ1ZTYwLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDg1MjU1MiwibmJmIjoxNjE0ODQ1MzQ3LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUiLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJhdXRoMHw2MDM3YjlkNmE0MjMyYTAwNjkxMWFlMzIiLCJhdmF0YXIiOiIiLCJlbWFpbCI6IiJ9fX0.JEXBiAmgN3jdaVQ-Tx8-MojZIr7MihylclNM-NzNLBHJ8dTFP4BdFqqJj3-MY8teOOyaMfJ2QYaWQkFX_mi5NeKIANsA-j2_8J1mu7mQlmbq-3zMSEyQxO9JY5ZeN1SY8j5cnq_4riGYBeoD4KmPXZB55KxNlct7JfXKXhdkL-bl9lWGb3vWRowCgCy_ZwF5UuBbWQ1aZuxCrqCc9oRyQkWj08HVb3TEJmaikD2S7I77sDfx3JCfrWHN8QUgwkzi95tQSDjX7M6j9ArTb_3DQwKoHEs0xTs18YSBJFRfBS5HvFGIb7AKPdenWun8Qk2AiyNJ-8yqkJtyCHVBjgXMwg';
 let tenant = 'vpaas-magic-cookie-88dfb7a7488f43a689e37d432fe97a85';
+let screenName = "";
 
+let connection = null;
+let isJoined = false;
+let room = null;
+
+let localTracks = [];
+const remoteTracks = {};
 
 // var db = firebase.firestore();
 
@@ -30,29 +37,39 @@ function buildOptions(roomName) {
     };
 }
 
-let connection = null;
-let isJoined = false;
-let room = null;
-
-let localTracks = [];
-const remoteTracks = {};
-
-
 function onLocalTracks(tracks) {
     localTracks = tracks;
     for (let i = 0; i < localTracks.length; i++) {
         if (localTracks[i].getType() === 'video') {
             // $('#video-conatiner').append(`<video autoplay='1' id='localVideo${i}' />`);
-            $('body').append(`<video autoplay='1' id='localVideo${i} class='video-left' />`);
+            $('body').append(`<video autoplay='1' id='localVideo${i} />`);
             localTracks[i].attach($(`#localVideo${i}`)[0]);
+
             // localStorage.setItem(tracks.getParticipantId(), `localVideo${i}`)
         } else {
-            $(body).append(
+            $('body').append(
                 `<audio autoplay='1' muted='true' id='localAudio${i}' />`);
             localTracks[i].attach($(`#localAudio${i}`)[0]);
         }
         if (isJoined) {
             room.addTrack(localTracks[i]);
+            setTimeout(() => {
+                if (document.getElementById(`localVideo${i}`)) {
+
+                    if (screenName === 'center') {
+                        document.getElementById(`localVideo${i}`).classList.add('video-center');
+                        room.setDisplayName('center');
+                    } else if (screenName === 'left') {
+                        document.getElementById(`localVideo${i}`).classList.add('video-left');
+                        room.setDisplayName('left');
+                    } else if (screenName === 'right') {
+                        document.getElementById(`localVideo${i}`).classList.add('video-right');
+                        room.setDisplayName('right');
+                    }
+                } else {
+                    console.error('Element not found localVideo', i);
+                }
+            }, 2000);
         }
     }
 }
@@ -74,9 +91,9 @@ function onRemoteTrack(track) {
         //             `<video autoplay='1' id='${participant}video${idx}' />`);
         // const remoteTrackLength = Object.keys(remoteTracks).length;
         // if(remoteTrackLength % 2 === 1) {
-            $('body').append(
-                `<video autoplay='1' id='${participant}video${idx}' />`);
-                // localStorage.setItem(participant, id);
+        $('body').append(
+            `<video autoplay='1' id='${participant}video${idx}' />`);
+        // localStorage.setItem(participant, id);
         // } 
         // if(remoteTrackLength % 2 === 0) {
         //     $('#video-container').append(
@@ -88,6 +105,22 @@ function onRemoteTrack(track) {
             `<audio autoplay='1' id='${participant}audio${idx}' />`);
     }
     track.attach($(`#${id}`)[0]);
+    var guestName = room.getParticipantById(participant);
+    if (guestName) {
+        if (guestName.getDisplayName()) {
+            console.log("Participant " + participant + " name " + guestName.getDisplayName());
+
+            if (guestName.getDisplayName() === 'center') {
+                document.getElementById(id).classList.add('video-center');
+            } else if (guestName.getDisplayName() === 'left') {
+                document.getElementById(id).classList.add('video-left');
+            } else if (guestName.getDisplayName() === 'right') {
+                document.getElementById(id).classList.add('video-right');
+            }
+        }
+    } else {
+        console.error("Participant not found", participant);
+    }
 }
 
 
@@ -98,9 +131,9 @@ function onConferenceJoined() {
         room.addTrack(localTracks[i]);
     }
 
-    setTimeout(() => {
-        setFullscreenListener();
-    }, 3000);
+    // setTimeout(() => {
+    //     setFullscreenListener();
+    // }, 3000);
 }
 
 
@@ -142,7 +175,7 @@ function onConnectionSuccess() {
         });
     room.on(JitsiMeetJS.events.conference.USER_LEFT, onUserLeft);
     room.join();
-    room.on
+    // room.on
 }
 
 
@@ -235,8 +268,36 @@ $(document).ready(function () {
     //         cities.push(doc.data().name);
     //     });
     // });
-    
+
 });
+
+function joinOnFixScreen(screenToJoin) {
+    screenName = screenToJoin;
+    options = buildOptions(roomName);
+    // token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtMjg1ZDFkMzZiYzdkNGIyZGIyMWMzOTc4YjM0NTEzMjcvMTA5MTRhLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDQxNTM4OSwibmJmIjoxNjE0NDA4MTg0LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtMjg1ZDFkMzZiYzdkNGIyZGIyMWMzOTc4YjM0NTEzMjciLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJnb29nbGUtb2F1dGgyfDEwODAyNDA1MDMxOTg3OTI1NTAwNCIsImF2YXRhciI6IiIsImVtYWlsIjoiaGFyejA5MDFAZ21haWwuY29tIn19fQ.hDTmW3dm5l8MYel_UmPjvPa69teZeVstaDrOiZdn92N9UlQ7zYXVeCmbrlRy0jX5H_9Xf-JgjUnnzJjooX8G2bzY566Y7YOBvKNgaqfM3X8bSEadSNmk6LMjFTGuIapgin_bRJxGhgBLcthbeYVfZ_xGo65-eKbNHDZrugJCzWFfty5l9yvZFsBm0-_KQ6jQZ8oISmRUY4J_Qowlz9BjBhbiLpAkw_gZGXlZnlEZEmkxDmTvqbzecEzQAdaf-PV0xrySa847RKc_hIrrQhttcfi9HGeZrwo05CcdYKKuZolnp6jIkof2bMIxt4YiNQL7CX9XN5vzZZG_yv_viuLC9w';
+
+    connection = new JitsiMeetJS.JitsiConnection(null, token, options.connection);
+
+    connection.addEventListener(
+        JitsiMeetJS.events.connection.CONNECTION_ESTABLISHED,
+        onConnectionSuccess);
+    connection.addEventListener(
+        JitsiMeetJS.events.connection.CONNECTION_FAILED,
+        onConnectionFailed);
+    connection.addEventListener(
+        JitsiMeetJS.events.connection.CONNECTION_DISCONNECTED,
+        disconnect);
+
+    connection.connect();
+
+    JitsiMeetJS.createLocalTracks({
+            devices: ['audio', 'video']
+        })
+        .then(onLocalTracks)
+        .catch(error => {
+            throw error;
+        });
+}
 
 function setFullscreenListener() {
 
