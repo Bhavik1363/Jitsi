@@ -30,7 +30,9 @@ function buildOptions(roomName) {
                 focus: 'focus.8x8.vc'
             },
             serviceUrl: `wss://8x8.vc/xmpp-websocket?room=${roomName}`,
-            clientNode: 'http://jitsi.org/jitsimeet'
+            clientNode: 'http://jitsi.org/jitsimeet',
+            startAudioMuted:true,
+            startVideoMuted:true
         },
         conference: {
             p2p: {
@@ -45,8 +47,8 @@ function onLocalTracks(tracks) {
     for (let i = 0; i < localTracks.length; i++) {
         if (localTracks[i].getType() === 'video') {
             // $('#video-conatiner').append(`<video autoplay='1' id='localVideo${i}' />`);
-            $('body').append(`<video autoplay='1' id='localVideo${i}' />`);
-            localTracks[i].attach($(`#localVideo${i}`)[0]);
+            // $('body').append(`<video autoplay='1' id='localVideo${i}' />`);
+            // localTracks[i].attach($(`#localVideo${i}`)[0]);
 
             // localStorage.setItem(tracks.getParticipantId(), `localVideo${i}`)
         } else {
