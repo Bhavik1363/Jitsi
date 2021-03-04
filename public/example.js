@@ -4,7 +4,8 @@
 // Required for side-effects
 // require("firebase/firestore");
 {
-    /* <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> */ }
+    /* <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> */
+}
 let options;
 let roomName = 'merztest3';
 let token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUvZGQ1ZTYwLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDg2MDYxMCwibmJmIjoxNjE0ODUzNDA1LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUiLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJhdXRoMHw2MDM3YjlkNmE0MjMyYTAwNjkxMWFlMzIiLCJhdmF0YXIiOiIiLCJlbWFpbCI6Im1vaGl0c2FpbmkxNzk1QGdtYWlsLmNvbSJ9fX0.jX5hxLxhw8C0gFfAWEWdgpDQG9EqA_wsT2D79pi32JW3yNwWJqB1wqRJfEmB_At0h5vqwIfal2QDzXpQgmSoDke8D-Q1ZIzXpFfWmjirx51YoeEozWyXRnTKYbpOyu6IOtdtt6sG6WdI4DpY3nt5yXCIWNSRdyOU9iHZ73wrMD4T5YSVDX6aQbfzyXXnYfFtz6KhC_4drKeBGqIIGx0w-z0X36rIQ0T9bx2KqwJMQiNFxDaA4Eql7d4H5oP7psaSt_wfs-w4vhnvKWDKW84j0OjTiQL_XnavjAIAxvQ4nlFWRc1EVuaO-09IdvdnnV6Ytaez-T0C46SiXJIv51aZ1w';
@@ -222,6 +223,7 @@ function disconnect() {
     if (connection) {
         connection.disconnect();
     }
+    window.location.href = "login.html";
 }
 
 // $(window).bind('beforeunload', disconnect);
