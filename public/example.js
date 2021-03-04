@@ -5,7 +5,7 @@
 // require("firebase/firestore");
 let options;
 let roomName = 'merztest1';
-let token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUvZGQ1ZTYwLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDc5NDE0MiwibmJmIjoxNjE0Nzg2OTM3LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUiLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJhdXRoMHw2MDM3YjlkNmE0MjMyYTAwNjkxMWFlMzIiLCJhdmF0YXIiOiIiLCJlbWFpbCI6Im1vaGl0c2FpbmkxNzk1QGdtYWlsLmNvbSJ9fX0.qPCHUD3bw2x5fzn7LHCdtT_WLrBTt0j4SpmvICb-LACzdFRhVVxlFQ_8TRDpXUAx5mYA8jARihZVSm6bc3lTEoJBGq91vkW6ytUr8_W0CzAfzf_QAGpOo_5fFMCBdZ5jiY2uodPFGCAofWu28I8oDpR9bpTwH7Huq211lA7Vbzo-eVjJS1na7OtyPEO3rl890YmkwORodOzuyXXXxVL9V-BwyaTye1B-trqrEbuCaUGYaGkkjKPmh70guxWhswg-U1uZMuqZgF4MO77kbepLQRKmXcArMb1wD3Il3L9RyVxgglAZwLaCHz66gfsRO5TQ66Z3nOHtoQ2TaxbpsjsTSQ';
+let token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUvZGQ1ZTYwLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDg0NTExOSwibmJmIjoxNjE0ODM3OTE0LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUiLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJhdXRoMHw2MDM3YjlkNmE0MjMyYTAwNjkxMWFlMzIiLCJhdmF0YXIiOiIiLCJlbWFpbCI6Im1vaGl0c2FpbmkxNzk1QGdtYWlsLmNvbSJ9fX0.nQAYvNOEx71t11GvNOogkqft7BzLM-sjy6ynnCNOp9ScfS_oqOcm96jeK4dF8oBff-0dBiKp2S_h_JwahDBQcWg3VeCBxp44wv5Bl92uVJyv1ZbWrTSWpvMsVbWSgR-cgPDCMmXQY8BMvPTbKqC9oka6yLAKXvPuJALMLf6xWufyPbR_RiCoK72bQhJg6WkQdCil6cfB2r2SS8AYYJ8rUJUVL0L6KPdn6JUEdUeTeZa5N0ZXO7M91WNLDuYdGX2gGz4nvo0Zpsqib0qU7FXS43ZV6qO24iGflRlTIqaNYmOrDrE_xVm8s7D-47bfdUabE5We7pv_7cgu-YZXwnBYow';
 let tenant = 'vpaas-magic-cookie-88dfb7a7488f43a689e37d432fe97a85';
 
 
@@ -42,12 +42,12 @@ function onLocalTracks(tracks) {
     localTracks = tracks;
     for (let i = 0; i < localTracks.length; i++) {
         if (localTracks[i].getType() === 'video') {
-            $('#video-conatiner').append(`<video autoplay='1' id='localVideo${i}' />`);
-            // $('body').append(`<video autoplay='1' id='localVideo${i} class='video-left' />`);
+            // $('#video-conatiner').append(`<video autoplay='1' id='localVideo${i}' />`);
+            $('body').append(`<video autoplay='1' id='localVideo${i} class='video-left' />`);
             localTracks[i].attach($(`#localVideo${i}`)[0]);
             // localStorage.setItem(tracks.getParticipantId(), `localVideo${i}`)
         } else {
-            $('video-container').append(
+            $(body).append(
                 `<audio autoplay='1' muted='true' id='localAudio${i}' />`);
             localTracks[i].attach($(`#localAudio${i}`)[0]);
         }
@@ -58,7 +58,10 @@ function onLocalTracks(tracks) {
 }
 
 function onRemoteTrack(track) {
-    const participant = track.participant;
+    const participant = track.getParticipantId();
+
+    console.log('participant => ', track.participant);
+
 
     if (!remoteTracks[participant]) {
         remoteTracks[participant] = [];
@@ -71,7 +74,7 @@ function onRemoteTrack(track) {
         //             `<video autoplay='1' id='${participant}video${idx}' />`);
         // const remoteTrackLength = Object.keys(remoteTracks).length;
         // if(remoteTrackLength % 2 === 1) {
-            $('#video-container').append(
+            $('body').append(
                 `<video autoplay='1' id='${participant}video${idx}' />`);
                 // localStorage.setItem(participant, id);
         // } 
@@ -81,7 +84,7 @@ function onRemoteTrack(track) {
         //         localStorage.setItem('right-video', id);
         // } 
     } else {
-        $('#video-container').append(
+        $('body').append(
             `<audio autoplay='1' id='${participant}audio${idx}' />`);
     }
     track.attach($(`#${id}`)[0]);
@@ -103,8 +106,8 @@ function onConferenceJoined() {
 
 function onUserLeft(id) {
     console.log('user left');
-    var el = document.getElementById(removepart + "video" + removeid);
-    el.remove();
+    // var el = document.getElementById(removepart + "video" + removeid);
+    // el.remove();
     console.log(el);
     if (!remoteTracks[id]) {
         return;
