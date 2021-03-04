@@ -7,8 +7,8 @@
     /* <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> */
 }
 let options;
-let roomName = 'merztest3';
-let token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUvZGQ1ZTYwLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDg2ODg3NCwibmJmIjoxNjE0ODYxNjY5LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUiLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJhdXRoMHw2MDM3YjlkNmE0MjMyYTAwNjkxMWFlMzIiLCJhdmF0YXIiOiIiLCJlbWFpbCI6Im1vaGl0c2FpbmkxNzk1QGdtYWlsLmNvbSJ9fX0.la0Y0h3i0RMCYUe09tHO2JOC5ZFgoczRMQ9p8OqGUcsvDFku3nUHoVk5hcuW22vOjgh3DyFAWAPzbwHqYdbHDLmkDnfrMnJ4qxLA6mg_K_M1wcKkqUeeKZiS995vbVeX2jk99kPkreg9nKPllh5k2p97IDcD86y8exW55YDVdUvrS_sn4vLDlJg3Kl9_2wgq1kMhq27aRj2ySPnibeOfBJBfXzp2w1hSUh572tQ4pGkJW0DvMCq0NyZK7rZJWrJYJL9rV6YbVZn5thuzI1c1xZHxIrVYm3DBuW_tGn9JPQv5OrrdociKj7XG7Dj_VDWd8PPTTuEtmmOIhxkm8G-_kA';
+let roomName = 'merztest4';
+let token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUvZGQ1ZTYwLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDg3NTMzOCwibmJmIjoxNjE0ODY4MTMzLCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUiLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJhdXRoMHw2MDM3YjlkNmE0MjMyYTAwNjkxMWFlMzIiLCJhdmF0YXIiOiIiLCJlbWFpbCI6Im1vaGl0c2FpbmkxNzk1QGdtYWlsLmNvbSJ9fX0.XVtLtkdlwe6TT-vo692Fa6oj6c2UW_YOvUWc4xFRKEvkbVVbSNu2Qwi3kZ6uC4-9mhMsxlUYkbW81m2jtcrduNvJbwMN70nj3rqnfGFEdEGZ5O5baLIbK9yKxGC-wD0qsn6wYLJDddIGaVDn7iPSJKP6KiDjsI4-vIdbFwjEYfhHsQ8q_vWkapi9Fzb9Wo5BMt2JHzXFvVu8vv3wctDx3b91FbvdtBs8cbRZMQJVTVwaXrSi8GeDqLrB9nSiiGFbP1n1GGseuP3OahUfnBxz_dVWLua3qvjcx9PoCIDEHHCsTXz9pLFd4gq3OXh8W8P3BXrRp4cUmGxSD57ghNjZEQ';
 let tenant = 'vpaas-magic-cookie-88dfb7a7488f43a689e37d432fe97a85';
 let screenName = "";
 
@@ -18,6 +18,10 @@ let room = null;
 
 let localTracks = [];
 const remoteTracks = {};
+
+var selectedCameraNum = 0;
+let cameraList = [];
+let micList = [];
 
 // var db = firebase.firestore();
 
@@ -41,6 +45,8 @@ function buildOptions(roomName) {
 }
 
 function onLocalTracks(tracks) {
+
+    navigator.mediaDevices.enumerateDevices().then(gotDevices);
     localTracks = tracks;
     for (let i = 0; i < localTracks.length; i++) {
         if (localTracks[i].getType() === 'video') {
@@ -374,4 +380,98 @@ function setFullscreenListener() {
             }
         });
     }
+}
+
+
+
+function gotDevices(mediaDevices) {
+    cameraList = [];
+    micList = [];
+    mediaDevices.forEach(mediaDevice => {
+        console.log(mediaDevice.kind + " : " + mediaDevice.label +
+            "\nDevice ID : " + mediaDevice.deviceId + "\nGroup Id : " + mediaDevice.groupId);
+        if (mediaDevice.kind === 'videoinput') {
+            cameraList.push(mediaDevice);
+        }
+        if (mediaDevice.kind === 'audioinput') {
+            micList.push(mediaDevice);
+        }
+    });
+}
+
+function stopMediaTracks(stream) {
+    stream.getTracks().forEach(track => {
+        track.stop();
+    });
+}
+
+function ChangeCamera() {
+
+    selectedCameraNum++;
+    if (selectedCameraNum > cameraList.length - 1) {
+        selectedCameraNum = 0;
+    }
+
+    console.warn("Camera " + (selectedCameraNum + 1) + " selected from " + cameraList.length + " devices\n" + cameraList[selectedCameraNum].deviceId);
+
+    for (let i = 0; i < localTracks.length; i++) {
+        if (localTracks[i].getType() === 'video') {
+            stopMediaTracks(localTracks[i].stream);
+        }
+    }
+
+    var isFirstTrackRemoved = false;
+    if (localTracks[1] && localTracks[1].getType() === 'video') {
+        localTracks[1].dispose();
+        localTracks.pop();
+    } else if (localTracks[0] && localTracks[0].getType() === 'video') {
+        isFirstTrackRemoved = true;
+        localTracks[0].dispose();
+        localTracks.shift();
+    }
+
+    JitsiMeetJS.createLocalTracks({
+            devices: ['video'],
+            cameraDeviceId: {
+                exact: cameraList[selectedCameraNum].deviceId
+            },
+            facingMode: cameraList[selectedCameraNum].facingMode
+        })
+        .then(tracks => {
+            if (isFirstTrackRemoved) {
+                localTracks.unshift(tracks[0]);
+                localTracks[0].addEventListener(
+                    JitsiMeetJS.events.track.TRACK_MUTE_CHANGED,
+                    () => {
+                        console.warn('camera track muted');
+                    });
+                localTracks[0].addEventListener(
+                    JitsiMeetJS.events.track.LOCAL_TRACK_STOPPED,
+                    () => {
+                        console.warn('camera track stopped');
+                    });
+                localTracks[0].attach($('#localVideo1')[0]);
+                room.addTrack(localTracks[0]);
+            } else {
+                localTracks.push(tracks[0]);
+                localTracks[1].addEventListener(
+                    JitsiMeetJS.events.track.TRACK_MUTE_CHANGED,
+                    () => {
+                        console.warn('camera track muted');
+                    });
+                localTracks[1].addEventListener(
+                    JitsiMeetJS.events.track.LOCAL_TRACK_STOPPED,
+                    () => {
+                        console.warn('camera track stopped');
+                    });
+                localTracks[1].attach($('#localVideo1')[0]);
+                room.addTrack(localTracks[1]);
+            }
+        })
+        .catch(error => {
+            console.error("Camera switching " + error);
+            // SendErrors('Camera Switch ' + error);
+            // ShowToast('Camera not able to change');
+            ChangeCamera();
+        });
 }

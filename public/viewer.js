@@ -7,8 +7,8 @@
     /* <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> */
 }
 let options;
-let roomName = 'merztest3';
-let token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUvZGQ1ZTYwLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDg2ODg3NCwibmJmIjoxNjE0ODYxNjY5LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUiLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJhdXRoMHw2MDM3YjlkNmE0MjMyYTAwNjkxMWFlMzIiLCJhdmF0YXIiOiIiLCJlbWFpbCI6Im1vaGl0c2FpbmkxNzk1QGdtYWlsLmNvbSJ9fX0.la0Y0h3i0RMCYUe09tHO2JOC5ZFgoczRMQ9p8OqGUcsvDFku3nUHoVk5hcuW22vOjgh3DyFAWAPzbwHqYdbHDLmkDnfrMnJ4qxLA6mg_K_M1wcKkqUeeKZiS995vbVeX2jk99kPkreg9nKPllh5k2p97IDcD86y8exW55YDVdUvrS_sn4vLDlJg3Kl9_2wgq1kMhq27aRj2ySPnibeOfBJBfXzp2w1hSUh572tQ4pGkJW0DvMCq0NyZK7rZJWrJYJL9rV6YbVZn5thuzI1c1xZHxIrVYm3DBuW_tGn9JPQv5OrrdociKj7XG7Dj_VDWd8PPTTuEtmmOIhxkm8G-_kA';
+let roomName = 'merztest4';
+let token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUvZGQ1ZTYwLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDg3NTMzOCwibmJmIjoxNjE0ODY4MTMzLCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUiLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJhdXRoMHw2MDM3YjlkNmE0MjMyYTAwNjkxMWFlMzIiLCJhdmF0YXIiOiIiLCJlbWFpbCI6Im1vaGl0c2FpbmkxNzk1QGdtYWlsLmNvbSJ9fX0.XVtLtkdlwe6TT-vo692Fa6oj6c2UW_YOvUWc4xFRKEvkbVVbSNu2Qwi3kZ6uC4-9mhMsxlUYkbW81m2jtcrduNvJbwMN70nj3rqnfGFEdEGZ5O5baLIbK9yKxGC-wD0qsn6wYLJDddIGaVDn7iPSJKP6KiDjsI4-vIdbFwjEYfhHsQ8q_vWkapi9Fzb9Wo5BMt2JHzXFvVu8vv3wctDx3b91FbvdtBs8cbRZMQJVTVwaXrSi8GeDqLrB9nSiiGFbP1n1GGseuP3OahUfnBxz_dVWLua3qvjcx9PoCIDEHHCsTXz9pLFd4gq3OXh8W8P3BXrRp4cUmGxSD57ghNjZEQ';
 let tenant = 'vpaas-magic-cookie-88dfb7a7488f43a689e37d432fe97a85';
 let screenName = "";
 
@@ -31,8 +31,8 @@ function buildOptions(roomName) {
             },
             serviceUrl: `wss://8x8.vc/xmpp-websocket?room=${roomName}`,
             clientNode: 'http://jitsi.org/jitsimeet',
-            startAudioMuted:true,
-            startVideoMuted:true
+            startAudioMuted: true,
+            startVideoMuted: true
         },
         conference: {
             p2p: {
@@ -58,6 +58,7 @@ function onLocalTracks(tracks) {
         }
         if (isJoined) {
             room.addTrack(localTracks[i]);
+
             // setTimeout(() => {
             if (document.getElementById(`localVideo${i}`)) {
 
@@ -75,6 +76,15 @@ function onLocalTracks(tracks) {
                 console.error('Element not found localVideo', i);
             }
             // }, 2000);
+        }
+    }
+    for (let i = 0; i < localTracks.length; i++) {
+        if (localTracks[i].getType() === 'audio') {
+            localTracks[i].mute()
+                .then(console.warn("Audio mute on viewer"))
+                .catch(error => {
+                    console.warn("Audio mute error " + error);
+                });
         }
     }
 
