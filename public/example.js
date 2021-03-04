@@ -3,7 +3,8 @@
 // const firebase = require("firebase");
 // Required for side-effects
 // require("firebase/firestore");
-{/* <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> */}
+{
+    /* <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> */ }
 let options;
 let roomName = 'merztest3';
 let token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUvZGQ1ZTYwLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDg2MDYxMCwibmJmIjoxNjE0ODUzNDA1LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUiLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJhdXRoMHw2MDM3YjlkNmE0MjMyYTAwNjkxMWFlMzIiLCJhdmF0YXIiOiIiLCJlbWFpbCI6Im1vaGl0c2FpbmkxNzk1QGdtYWlsLmNvbSJ9fX0.jX5hxLxhw8C0gFfAWEWdgpDQG9EqA_wsT2D79pi32JW3yNwWJqB1wqRJfEmB_At0h5vqwIfal2QDzXpQgmSoDke8D-Q1ZIzXpFfWmjirx51YoeEozWyXRnTKYbpOyu6IOtdtt6sG6WdI4DpY3nt5yXCIWNSRdyOU9iHZ73wrMD4T5YSVDX6aQbfzyXXnYfFtz6KhC_4drKeBGqIIGx0w-z0X36rIQ0T9bx2KqwJMQiNFxDaA4Eql7d4H5oP7psaSt_wfs-w4vhnvKWDKW84j0OjTiQL_XnavjAIAxvQ4nlFWRc1EVuaO-09IdvdnnV6Ytaez-T0C46SiXJIv51aZ1w';
@@ -55,24 +56,26 @@ function onLocalTracks(tracks) {
         if (isJoined) {
             room.addTrack(localTracks[i]);
             // setTimeout(() => {
-                if (document.getElementById(`localVideo${i}`)) {
+            if (document.getElementById(`localVideo${i}`)) {
 
-                    if (screenName === 'center') {
-                        document.getElementById(`localVideo${i}`).classList.add('video-center');
-                        room.setDisplayName('center');
-                    } else if (screenName === 'left') {
-                        document.getElementById(`localVideo${i}`).classList.add('video-left');
-                        room.setDisplayName('left');
-                    } else if (screenName === 'right') {
-                        document.getElementById(`localVideo${i}`).classList.add('video-right');
-                        room.setDisplayName('right');
-                    }
-                } else {
-                    console.error('Element not found localVideo', i);
+                if (screenName === 'center') {
+                    document.getElementById(`localVideo${i}`).classList.add('video-center');
+                    room.setDisplayName('center');
+                } else if (screenName === 'left') {
+                    document.getElementById(`localVideo${i}`).classList.add('video-left');
+                    room.setDisplayName('left');
+                } else if (screenName === 'right') {
+                    document.getElementById(`localVideo${i}`).classList.add('video-right');
+                    room.setDisplayName('right');
                 }
+            } else {
+                console.error('Element not found localVideo', i);
+            }
             // }, 2000);
         }
     }
+
+    setFullscreenListener();
 }
 
 function onRemoteTrack(track) {
@@ -123,6 +126,7 @@ function onRemoteTrack(track) {
     }
     track.attach($(`#${id}`)[0]);
 
+    setFullscreenListener();
 }
 
 
@@ -131,19 +135,15 @@ function onConferenceJoined() {
     isJoined = true;
 
     JitsiMeetJS.createLocalTracks({
-        devices: ['audio', 'video']
-    })
-    .then(onLocalTracks)
-    .catch(error => {
-        throw error;
-    });
+            devices: ['audio', 'video']
+        })
+        .then(onLocalTracks)
+        .catch(error => {
+            throw error;
+        });
     for (let i = 0; i < localTracks.length; i++) {
         room.addTrack(localTracks[i]);
     }
-
-    setTimeout(() => {
-        setFullscreenListener();
-    }, 3000);
 }
 
 
@@ -305,56 +305,71 @@ function joinOnFixScreen(screenToJoin) {
 function setFullscreenListener() {
 
     var elemLeft = document.getElementsByClassName('video-left')[0];
-    elemLeft.addEventListener('click', function () {
-        if (elemLeft.requestFullscreen) {
-            elemLeft.requestFullscreen();
-        } else if (elemLeft.mozRequestFullScreen) {
-            /* Firefox */
-            elemLeft.mozRequestFullScreen();
-        } else if (elem.webkitRequestFullscreen) {
-            /* Chrome, Safari and Opera */
-            elemLeft.webkitRequestFullscreen();
-        } else if (elemLeft.msRequestFullscreen) {
-            /* IE/Edge */
-            elemLeft.msRequestFullscreen();
-        } else if (elem.webkitSupportsFullscreen) {
-            elemLeft.webkitEnterFullscreen();
-        }
-    });
+    $('.video-left').off();
+    if (elemLeft) {
+        elemLeft.addEventListener('click', function () {
+            if (elemLeft.requestFullscreen) {
+                elemLeft.requestFullscreen();
+            } else if (elemLeft.mozRequestFullScreen) {
+                /* Firefox */
+                elemLeft.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) {
+                /* Chrome, Safari and Opera */
+                elemLeft.webkitRequestFullscreen();
+            } else if (elemLeft.msRequestFullscreen) {
+                /* IE/Edge */
+                elemLeft.msRequestFullscreen();
+            } else if (elem.webkitSupportsFullscreen) {
+                elemLeft.webkitEnterFullscreen();
+            } else if (elem.webkitEnterFullscreen) {
+                elemLeft.webkitEnterFullscreen();
+            }
+        });
+    }
 
     var elemCenter = document.getElementsByClassName('video-center')[0];
-    elemCenter.addEventListener('click', function () {
-        if (elemCenter.requestFullscreen) {
-            elemCenter.requestFullscreen();
-        } else if (elemCenter.mozRequestFullScreen) {
-            /* Firefox */
-            elemCenter.mozRequestFullScreen();
-        } else if (elemCenter.webkitRequestFullscreen) {
-            /* Chrome, Safari and Opera */
-            elemCenter.webkitRequestFullscreen();
-        } else if (elemCenter.msRequestFullscreen) {
-            /* IE/Edge */
-            elemCenter.msRequestFullscreen();
-        } else if (elemCenter.webkitSupportsFullscreen) {
-            elemCenter.webkitEnterFullscreen();
-        }
-    });
+    $('.video-center').off();
+    if (elemCenter) {
+        elemCenter.addEventListener('click', function () {
+            if (elemCenter.requestFullscreen) {
+                elemCenter.requestFullscreen();
+            } else if (elemCenter.mozRequestFullScreen) {
+                /* Firefox */
+                elemCenter.mozRequestFullScreen();
+            } else if (elemCenter.webkitRequestFullscreen) {
+                /* Chrome, Safari and Opera */
+                elemCenter.webkitRequestFullscreen();
+            } else if (elemCenter.msRequestFullscreen) {
+                /* IE/Edge */
+                elemCenter.msRequestFullscreen();
+            } else if (elemCenter.webkitSupportsFullscreen) {
+                elemCenter.webkitEnterFullscreen();
+            } else if (elemCenter.webkitEnterFullscreen) {
+                elemCenter.webkitEnterFullscreen();
+            }
+        });
+    }
 
     var elemRight = document.getElementsByClassName('video-right')[0];
-    elemRight.addEventListener('click', function () {
-        if (elemRight.requestFullscreen) {
-            elemRight.requestFullscreen();
-        } else if (elemRight.mozRequestFullScreen) {
-            /* Firefox */
-            elemRight.mozRequestFullScreen();
-        } else if (elemRight.webkitRequestFullscreen) {
-            /* Chrome, Safari and Opera */
-            elemRight.webkitRequestFullscreen();
-        } else if (elemRight.msRequestFullscreen) {
-            /* IE/Edge */
-            elemRight.msRequestFullscreen();
-        } else if (elemRight.webkitSupportsFullscreen) {
-            elemRight.webkitEnterFullscreen();
-        }
-    });
+    $('.video-right').off();
+    if (elemRight) {
+        elemRight.addEventListener('click', function () {
+            if (elemRight.requestFullscreen) {
+                elemRight.requestFullscreen();
+            } else if (elemRight.mozRequestFullScreen) {
+                /* Firefox */
+                elemRight.mozRequestFullScreen();
+            } else if (elemRight.webkitRequestFullscreen) {
+                /* Chrome, Safari and Opera */
+                elemRight.webkitRequestFullscreen();
+            } else if (elemRight.msRequestFullscreen) {
+                /* IE/Edge */
+                elemRight.msRequestFullscreen();
+            } else if (elemRight.webkitSupportsFullscreen) {
+                elemRight.webkitEnterFullscreen();
+            } else if (elemRight.webkitEnterFullscreen) {
+                elemRight.webkitEnterFullscreen();
+            }
+        });
+    }
 }
