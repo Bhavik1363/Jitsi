@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <title>Conference Webinar Sample</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="example.js"></script>
   <style>
       body{
   background: #00589F;
@@ -54,11 +55,11 @@ div.well{
               <form action="" id="loginForm">
                 <div class="form-group input-group">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                  <input class="form-control" type="text" name='username' placeholder="username"/>          
+                  <input class="form-control" type="text" id="username" name='username' placeholder="username"/>          
                 </div>
                 <div class="form-group input-group">
                   <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                  <input class="form-control" type="password" name='password' placeholder="password"/>     
+                  <input class="form-control" type="password" id="password" name='password' placeholder="password"/>     
                 </div>
                 <!-- <div class="checkbox">
                   <label>
@@ -66,7 +67,7 @@ div.well{
                   </label>
                 </div> -->
                 <div class="form-group">
-                  <button type="button" id="login-submit" class="btn btn-def btn-block">Login</button>
+                  <button type="button" id="login-submit" class="btn btn-def btn-block" onclick="login();">Login</button>
                 </div>
                 <!-- <div class="form-group text-center">
                   <a href="#">Forgot Password</a>&nbsp;|&nbsp;<a href="#">Support</a>
@@ -76,6 +77,28 @@ div.well{
           </div>    
         </div>
       </div>
+
+      <script>
+          function login() {
+            username = document.getElementById('username').value;
+            password = document.getElementById('password').value;
+
+            if(username === 'user_left' && password === '123456') {
+               localStorage.setItem('screenToJoin', 'left');
+               window.location.href = 'index.html';
+            } else if (username === 'user_center' && password === '123456') {
+                localStorage.setItem('screenToJoin', 'center');
+               window.location.href = 'index.html';
+            } else if (username === 'user_right' && password === '123456') {
+                localStorage.setItem('screenToJoin', 'right');
+               window.location.href = 'index.html';
+            } else if (username === 'viewer' && password === '123456') {
+                localStorage.setItem('screenToJoin', 'viewer');
+               window.location.href = 'viewer.html';
+            }
+
+          }
+      </script>
 </body>
 
 </html>
