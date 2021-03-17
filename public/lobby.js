@@ -8,10 +8,9 @@
 }
 let options;
 let roomName = 'merztest4';
-let token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUvZGQ1ZTYwLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDg4MzQzNCwibmJmIjoxNjE0ODc2MjI5LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUiLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJhdXRoMHw2MDM3YjlkNmE0MjMyYTAwNjkxMWFlMzIiLCJhdmF0YXIiOiIiLCJlbWFpbCI6Im1vaGl0c2FpbmkxNzk1QGdtYWlsLmNvbSJ9fX0.i8GPcQ48qbvnR1XJvZ-7LgE0_9HuWo2-A_vBu8gIexC6GhECxQ3BKOAMRdFvnQuB800oLAGcMWdwlEcYoinT8_Ml6T0PEwx-SroQVBdrOJKVJEYu54NNyDRlT4augf5y5MpCfG-eJLn7snsiKLgCttULbcApBRAgPN49g19tz2NSNlAuoS7ydZMBsrlZsv_TsFl-YAS37wV8obHGMcH9TyYjaMVV1queDLOTjM9OZj7p31BdzBXt7YTO04B4H_Gb8bgvTrhJhWifwC0IdPqrlKJaCT4yhs3frn11Vnl6C0mxh5F8r8WZHzGpLoX1N4O4NZn3H_R_ZR4GZ6VVdOURzA';
+let token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUvZGQ1ZTYwLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNTkwMDk1MSwibmJmIjoxNjE1ODkzNzQ2LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUiLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJhdXRoMHw2MDM3YjlkNmE0MjMyYTAwNjkxMWFlMzIiLCJhdmF0YXIiOiIiLCJlbWFpbCI6IiJ9fX0.Faz8oGtlNFG-_YYJoviSgw2lmVF7HjVdjRRQ1bJTn5_i7ZXQLAI7LzgrJBZJaEtOR9T0lSbeZ8MQHLWCY_uUp2R468Qi2BB-lzMMqj3THcUQ_nvVfI8af8HpaPvKqoX0cKBAKpktj532hTXaBEGSnzeTjgjT9gHAw0jOr1AlvVKP4k3LErTPLQdkXtC8BePo_lcB0_Uz0pXOw4WgcaKzkOATBHc2prHD6OqBLvlNBqqyGxCHjPbXq68fKUXWeEKtfyB96rAxVpe6Te4srfRqVGpGaPRp2RLtuUl_6t7yYxVr4EnQFCBHRJynH8VqkzVXbxduzK8ciclNIp84tnS08Q';
 let tenant = 'vpaas-magic-cookie-88dfb7a7488f43a689e37d432fe97a85';
 let screenName = "";
-
 let connection = null;
 let isJoined = false;
 let room = null;
@@ -40,8 +39,49 @@ function buildOptions(roomName) {
             p2p: {
                 enabled: true
             }
-        }
+        },
     };
+}
+window.onload = () => {
+
+    $.contextMenu({
+        selector: '.remote-container',
+        callback: function (key, options) {
+            // var m = "clicked: " + key;
+            // window.console && console.log(m) || alert(m);
+        },
+        items: {
+            "Left": {
+                name: "Move To Left",
+                callback: () => {
+                    // console.log(this.selector)
+                    remoteusermode()
+                    alert("left button clicked!")
+
+                }
+            },
+            "Center": {
+                name: "Move To Center",
+
+            },
+            "Right": {
+                name: "Move To Right"
+            },
+            "sep1": "---------",
+            "quit": {
+                name: "Quit",
+                icon: function () {
+                    return 'context-menu-icon context-menu-icon-quit';
+                }
+            }
+        }
+    });
+
+    $('.remote-container').on('Left', function (e) {
+        console.log('clicked', this);
+
+    })
+
 }
 
 function onLocalTracks(tracks) {
@@ -51,16 +91,24 @@ function onLocalTracks(tracks) {
     for (let i = 0; i < localTracks.length; i++) {
         if (localTracks[i].getType() === 'video') {
             // $('#video-conatiner').append(`<video autoplay='1' id='localVideo${i}' />`);
-            $('body').append(`<video autoplay='1' id='localVideo${i}' />`);
+            $('.video-container').append(`
+            <div class="call-view">
+                <div class="call-view__tracks__local-track-container">
+                    <div class="call-view__tracks__local-track">
+                        <video autoplay='1' class='videoframe' id='localVideo${i}' />
+                    </div>
+                </div>
+            </div>`);
             localTracks[i].attach($(`#localVideo${i}`)[0]);
 
             // localStorage.setItem(tracks.getParticipantId(), `localVideo${i}`)
         } else {
-            $('body').append(
+            $('.video-container').append(
                 `<audio autoplay='1' muted='true' id='localAudio${i}' />`);
             localTracks[i].attach($(`#localAudio${i}`)[0]);
         }
         if (isJoined) {
+            // getUserDetails()
             room.addTrack(localTracks[i]);
             // setTimeout(() => {
             if (document.getElementById(`localVideo${i}`)) {
@@ -82,15 +130,18 @@ function onLocalTracks(tracks) {
         }
     }
 
-    setFullscreenListener();
+    // setFullscreenListener();
+}
+
+function remoteusermode(videoElementID, userSide) {
+    console.log("video Element ID-->>>>", videoElementID)
+    room.setLocalParticipantProperty("move", videoElementID + "_" + userSide);
 }
 
 function onRemoteTrack(track) {
     const participant = track.getParticipantId();
-
+    console.log("participants===>>>>>>>>>>", participant)
     console.log('participant => ', track.participant);
-
-
     if (!remoteTracks[participant]) {
         remoteTracks[participant] = [];
     }
@@ -102,8 +153,19 @@ function onRemoteTrack(track) {
         //             `<video autoplay='1' id='${participant}video${idx}' />`);
         // const remoteTrackLength = Object.keys(remoteTracks).length;
         // if(remoteTrackLength % 2 === 1) {
-        $('body').append(
-            `<video autoplay='1' id='${participant}video${idx}' />`);
+        $('.remote-container').append(
+            `<div class="call-view">
+                <div class="call-view__tracks__local-track-container">
+                    <div class="call-view__tracks__local-track">
+                        <video autoplay='1' class='remotevideoframe' id='${participant}video${idx}' ></video>
+                        <button onclick="remoteusermode('${participant}','left')">Left</button>
+                        <button onclick="remoteusermode('${participant}','center')">Center</button>
+                        <button onclick="remoteusermode('${participant}','right')">Right</button>
+                    </div>
+                </div>
+            </div>
+            `);
+        // $('.remote-container').append(`      `);
         // localStorage.setItem(participant, id);
         // } 
         var guestName = room.getParticipantById(participant);
@@ -128,12 +190,12 @@ function onRemoteTrack(track) {
         //         localStorage.setItem('right-video', id);
         // } 
     } else {
-        $('body').append(
+        $('.remote-container').append(
             `<audio autoplay='1' id='${participant}audio${idx}' />`);
     }
     track.attach($(`#${id}`)[0]);
 
-    setFullscreenListener();
+    // setFullscreenListener();
 }
 
 
@@ -153,12 +215,11 @@ function onConferenceJoined() {
     }
 }
 
-
 function onUserLeft(id) {
-    console.log('user left');
+    console.log('user left', id);
     // var el = document.getElementById(removepart + "video" + removeid);
     // el.remove();
-    console.log(el);
+
     if (!remoteTracks[id]) {
         return;
     }
@@ -168,8 +229,23 @@ function onUserLeft(id) {
         console.log('Element Id =>>' + id + ' ' + tracks[i].getParticipantId());
         // console.log("Element IDD ==>>"+tracks[i].getParticipantId()+"video"+1);
         tracks[i].detach($(`#${id}${tracks[i].getType()}`));
-        var el = document.getElementById(tracks[i].getParticipantId() + "video" + "2");
-        el.remove();
+
+        // el = document.getElementById(tracks[i].getParticipantId() + "video" + "2");
+        // el.remove();
+        // console.log(el);
+    }
+}
+
+function KickParticipant(userId) {
+    if (isRoomOwner) {
+        if (userId) {
+            console.warn("Kicking out " + userId);
+            room.setLocalParticipantProperty("kickParticipant", userId);
+            RemoveElement(userId);
+        }
+    } else {
+        console.warn("Not a moderator");
+        ShowToast('Access Denied');
     }
 }
 
@@ -188,9 +264,10 @@ function onConnectionSuccess() {
     room.on(
         JitsiMeetJS.events.conference.USER_JOINED,
         id => {
-            console.log(`user joined: id`);
+            console.log(`user joined:---->`, id);
         });
     room.on(JitsiMeetJS.events.conference.USER_LEFT, onUserLeft);
+    room.on(JitsiMeetJS.events.conference.PARTICIPANT_PROPERTY_CHANGED, handleParticipantPropertyChanged);
     room.join();
     // room.on
 }
@@ -229,7 +306,11 @@ function disconnect() {
     // if (connection) {
     //     connection.disconnect();
     // }
-    window.location.href = "login.html";
+    const newLocal = JitsiMeetJS.events.conference.USER_LEFT;
+    if (newLocal) {
+        alert("You Left The meeting!!")
+    }
+    window.location.href = "index.html";
 }
 
 // $(window).bind('beforeunload', disconnect);
@@ -382,7 +463,16 @@ function setFullscreenListener() {
     }
 }
 
-
+function getUserDetails() {
+    userName = localStorage.getItem('screenToJoin');
+    api.executeCommands({
+        displayName: ['nickname'],
+        toggleAudio: []
+    });
+    api.executeCommand('displayName', 'New Nickname');
+    alert(api.executeCommands.displayName)
+    console.log(userName);
+}
 
 function gotDevices(mediaDevices) {
     cameraList = [];
@@ -474,4 +564,37 @@ function ChangeCamera() {
             // ShowToast('Camera not able to change');
             ChangeCamera();
         });
+}
+
+function RemoveElement(userId) {
+    console.warn("Removing remote participant element " + userId);
+    // participantIds.delete(userId);
+    
+    var videoElement = document.getElementById(userId + "video");
+
+    if (videoElement) {
+        if (videoElement.parentNode.parentNode != null) {
+            videoElement.parentNode.parentNode.removeChild(videoElement.parentNode);
+        }
+    }
+    if (videoElement) {
+        videoElement.style.display = 'none';
+    }
+}
+
+function handleParticipantPropertyChanged(param1, type) {
+    console.warn(room.myUserId() + " " + param1._id + " " + type + " " + param1._properties[type].split('_')[0]);
+
+    if (type === 'move') {
+        if (room.myUserId() === param1._properties[type].split('_')[0]) {
+            localStorage.setItem("screenToJoin", param1._properties[type].split('_')[1])
+            window.location.href = "live.html"
+        } else {
+            if (param1._properties[type]) {
+                setTimeout(() => {
+                    RemoveElement(param1._properties[type]);
+                }, 2000);
+            }
+        }
+    }
 }

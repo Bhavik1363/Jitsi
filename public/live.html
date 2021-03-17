@@ -85,16 +85,19 @@ div.well{
 
             if(username === 'user_left' && password === '123456') {
                localStorage.setItem('screenToJoin', 'left');
-               window.location.href = 'index.html';
+               window.location.href = 'lobby.html';
             } else if (username === 'user_center' && password === '123456') {
                 localStorage.setItem('screenToJoin', 'center');
-               window.location.href = 'index.html';
+               window.location.href = 'lobby.html';
             } else if (username === 'user_right' && password === '123456') {
                 localStorage.setItem('screenToJoin', 'right');
-               window.location.href = 'index.html';
+               window.location.href = 'lobby.html';
             } else if (username === 'viewer' && password === '123456') {
                 localStorage.setItem('screenToJoin', 'viewer');
                window.location.href = 'viewer.html';
+            }else if(username === 'Admin' && password === 'admin123'){
+              localStorage.setItem('screenToJoin','Admin');
+              window.location.href = 'lobby.html';
             }
 
           }

@@ -7,8 +7,8 @@
     /* <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> */
 }
 let options;
-let roomName = 'merztest4';
-let token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUvZGQ1ZTYwLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDg4MzQzNCwibmJmIjoxNjE0ODc2MjI5LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUiLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJhdXRoMHw2MDM3YjlkNmE0MjMyYTAwNjkxMWFlMzIiLCJhdmF0YXIiOiIiLCJlbWFpbCI6Im1vaGl0c2FpbmkxNzk1QGdtYWlsLmNvbSJ9fX0.i8GPcQ48qbvnR1XJvZ-7LgE0_9HuWo2-A_vBu8gIexC6GhECxQ3BKOAMRdFvnQuB800oLAGcMWdwlEcYoinT8_Ml6T0PEwx-SroQVBdrOJKVJEYu54NNyDRlT4augf5y5MpCfG-eJLn7snsiKLgCttULbcApBRAgPN49g19tz2NSNlAuoS7ydZMBsrlZsv_TsFl-YAS37wV8obHGMcH9TyYjaMVV1queDLOTjM9OZj7p31BdzBXt7YTO04B4H_Gb8bgvTrhJhWifwC0IdPqrlKJaCT4yhs3frn11Vnl6C0mxh5F8r8WZHzGpLoX1N4O4NZn3H_R_ZR4GZ6VVdOURzA';
+let roomName = 'merztest1';
+let token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUvZGQ1ZTYwLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNTkwMDk1MSwibmJmIjoxNjE1ODkzNzQ2LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtODhkZmI3YTc0ODhmNDNhNjg5ZTM3ZDQzMmZlOTdhODUiLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJhdXRoMHw2MDM3YjlkNmE0MjMyYTAwNjkxMWFlMzIiLCJhdmF0YXIiOiIiLCJlbWFpbCI6IiJ9fX0.Faz8oGtlNFG-_YYJoviSgw2lmVF7HjVdjRRQ1bJTn5_i7ZXQLAI7LzgrJBZJaEtOR9T0lSbeZ8MQHLWCY_uUp2R468Qi2BB-lzMMqj3THcUQ_nvVfI8af8HpaPvKqoX0cKBAKpktj532hTXaBEGSnzeTjgjT9gHAw0jOr1AlvVKP4k3LErTPLQdkXtC8BePo_lcB0_Uz0pXOw4WgcaKzkOATBHc2prHD6OqBLvlNBqqyGxCHjPbXq68fKUXWeEKtfyB96rAxVpe6Te4srfRqVGpGaPRp2RLtuUl_6t7yYxVr4EnQFCBHRJynH8VqkzVXbxduzK8ciclNIp84tnS08Q';
 let tenant = 'vpaas-magic-cookie-88dfb7a7488f43a689e37d432fe97a85';
 let screenName = "";
 
@@ -18,6 +18,10 @@ let room = null;
 
 let localTracks = [];
 const remoteTracks = {};
+
+var selectedCameraNum = 0;
+let cameraList = [];
+let micList = [];
 
 // var db = firebase.firestore();
 
@@ -30,9 +34,7 @@ function buildOptions(roomName) {
                 focus: 'focus.8x8.vc'
             },
             serviceUrl: `wss://8x8.vc/xmpp-websocket?room=${roomName}`,
-            clientNode: 'http://jitsi.org/jitsimeet',
-            startAudioMuted: true,
-            startVideoMuted: true
+            clientNode: 'http://jitsi.org/jitsimeet'
         },
         conference: {
             p2p: {
@@ -41,27 +43,48 @@ function buildOptions(roomName) {
         }
     };
 }
+options = buildOptions(roomName);
+// token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtMjg1ZDFkMzZiYzdkNGIyZGIyMWMzOTc4YjM0NTEzMjcvMTA5MTRhLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDQxNTM4OSwibmJmIjoxNjE0NDA4MTg0LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtMjg1ZDFkMzZiYzdkNGIyZGIyMWMzOTc4YjM0NTEzMjciLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJnb29nbGUtb2F1dGgyfDEwODAyNDA1MDMxOTg3OTI1NTAwNCIsImF2YXRhciI6IiIsImVtYWlsIjoiaGFyejA5MDFAZ21haWwuY29tIn19fQ.hDTmW3dm5l8MYel_UmPjvPa69teZeVstaDrOiZdn92N9UlQ7zYXVeCmbrlRy0jX5H_9Xf-JgjUnnzJjooX8G2bzY566Y7YOBvKNgaqfM3X8bSEadSNmk6LMjFTGuIapgin_bRJxGhgBLcthbeYVfZ_xGo65-eKbNHDZrugJCzWFfty5l9yvZFsBm0-_KQ6jQZ8oISmRUY4J_Qowlz9BjBhbiLpAkw_gZGXlZnlEZEmkxDmTvqbzecEzQAdaf-PV0xrySa847RKc_hIrrQhttcfi9HGeZrwo05CcdYKKuZolnp6jIkof2bMIxt4YiNQL7CX9XN5vzZZG_yv_viuLC9w';
 
+window.onload=()=>{
+    options = buildOptions(roomName);
+    // token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtMjg1ZDFkMzZiYzdkNGIyZGIyMWMzOTc4YjM0NTEzMjcvMTA5MTRhLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDQxNTM4OSwibmJmIjoxNjE0NDA4MTg0LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtMjg1ZDFkMzZiYzdkNGIyZGIyMWMzOTc4YjM0NTEzMjciLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJnb29nbGUtb2F1dGgyfDEwODAyNDA1MDMxOTg3OTI1NTAwNCIsImF2YXRhciI6IiIsImVtYWlsIjoiaGFyejA5MDFAZ21haWwuY29tIn19fQ.hDTmW3dm5l8MYel_UmPjvPa69teZeVstaDrOiZdn92N9UlQ7zYXVeCmbrlRy0jX5H_9Xf-JgjUnnzJjooX8G2bzY566Y7YOBvKNgaqfM3X8bSEadSNmk6LMjFTGuIapgin_bRJxGhgBLcthbeYVfZ_xGo65-eKbNHDZrugJCzWFfty5l9yvZFsBm0-_KQ6jQZ8oISmRUY4J_Qowlz9BjBhbiLpAkw_gZGXlZnlEZEmkxDmTvqbzecEzQAdaf-PV0xrySa847RKc_hIrrQhttcfi9HGeZrwo05CcdYKKuZolnp6jIkof2bMIxt4YiNQL7CX9XN5vzZZG_yv_viuLC9w';
+
+    connection = new JitsiMeetJS.JitsiConnection(null, token, options.connection);
+
+    connection.addEventListener(
+        JitsiMeetJS.events.connection.CONNECTION_ESTABLISHED,
+        onConnectionSuccess);
+    connection.addEventListener(
+        JitsiMeetJS.events.connection.CONNECTION_FAILED,
+        onConnectionFailed);
+    connection.addEventListener(
+        JitsiMeetJS.events.connection.CONNECTION_DISCONNECTED,
+        disconnect);
+
+    connection.connect();
+}
 function onLocalTracks(tracks) {
+
+    navigator.mediaDevices.enumerateDevices().then(gotDevices);
     localTracks = tracks;
     for (let i = 0; i < localTracks.length; i++) {
         if (localTracks[i].getType() === 'video') {
-            // $('#video-conatiner').append(`<video autoplay='1' id='localVideo${i}' />`);
-            // $('body').append(`<video autoplay='1' id='localVideo${i}' />`);
-            // localTracks[i].attach($(`#localVideo${i}`)[0]);
+            $('#video-container').append(`<video autoplay='1' id='localVideo${i}' />`);
+            // $('video-container').append(`<video autoplay='1' id='localVideo${i}' />`);
+            localTracks[i].attach($(`#localVideo${i}`)[0]);
 
             // localStorage.setItem(tracks.getParticipantId(), `localVideo${i}`)
         } else {
-            $('body').append(
+            $('#video-container').append(
                 `<audio autoplay='1' muted='true' id='localAudio${i}' />`);
             localTracks[i].attach($(`#localAudio${i}`)[0]);
         }
         if (isJoined) {
             room.addTrack(localTracks[i]);
-
             // setTimeout(() => {
             if (document.getElementById(`localVideo${i}`)) {
-
+                screenName = localStorage.getItem('screenToJoin')
                 if (screenName === 'center') {
                     document.getElementById(`localVideo${i}`).classList.add('video-center');
                     room.setDisplayName('center');
@@ -76,15 +99,6 @@ function onLocalTracks(tracks) {
                 console.error('Element not found localVideo', i);
             }
             // }, 2000);
-        }
-    }
-    for (let i = 0; i < localTracks.length; i++) {
-        if (localTracks[i].getType() === 'audio') {
-            localTracks[i].mute()
-                .then(console.warn("Audio mute on viewer"))
-                .catch(error => {
-                    console.warn("Audio mute error " + error);
-                });
         }
     }
 
@@ -116,7 +130,7 @@ function onRemoteTrack(track) {
         if (guestName) {
             if (guestName.getDisplayName()) {
                 console.log("Participant " + participant + " name " + guestName.getDisplayName());
-
+                screenName = localStorage.getItem('screenToJoin')
                 if (guestName.getDisplayName() === 'center') {
                     document.getElementById(id).classList.add('video-center');
                 } else if (guestName.getDisplayName() === 'left') {
@@ -161,7 +175,7 @@ function onConferenceJoined() {
 
 
 function onUserLeft(id) {
-    console.log('user left');
+    console.log('user left:----->',id);
     // var el = document.getElementById(removepart + "video" + removeid);
     // el.remove();
     console.log(el);
@@ -194,7 +208,7 @@ function onConnectionSuccess() {
     room.on(
         JitsiMeetJS.events.conference.USER_JOINED,
         id => {
-            console.log(`user joined: id`);
+            console.log(`user joined:`, id);
         });
     room.on(JitsiMeetJS.events.conference.USER_LEFT, onUserLeft);
     room.join();
@@ -295,26 +309,26 @@ $(document).ready(function () {
 
 });
 
-function joinOnFixScreen(screenToJoin) {
-    screenName = screenToJoin;
-    options = buildOptions(roomName);
-    // token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtMjg1ZDFkMzZiYzdkNGIyZGIyMWMzOTc4YjM0NTEzMjcvMTA5MTRhLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDQxNTM4OSwibmJmIjoxNjE0NDA4MTg0LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtMjg1ZDFkMzZiYzdkNGIyZGIyMWMzOTc4YjM0NTEzMjciLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJnb29nbGUtb2F1dGgyfDEwODAyNDA1MDMxOTg3OTI1NTAwNCIsImF2YXRhciI6IiIsImVtYWlsIjoiaGFyejA5MDFAZ21haWwuY29tIn19fQ.hDTmW3dm5l8MYel_UmPjvPa69teZeVstaDrOiZdn92N9UlQ7zYXVeCmbrlRy0jX5H_9Xf-JgjUnnzJjooX8G2bzY566Y7YOBvKNgaqfM3X8bSEadSNmk6LMjFTGuIapgin_bRJxGhgBLcthbeYVfZ_xGo65-eKbNHDZrugJCzWFfty5l9yvZFsBm0-_KQ6jQZ8oISmRUY4J_Qowlz9BjBhbiLpAkw_gZGXlZnlEZEmkxDmTvqbzecEzQAdaf-PV0xrySa847RKc_hIrrQhttcfi9HGeZrwo05CcdYKKuZolnp6jIkof2bMIxt4YiNQL7CX9XN5vzZZG_yv_viuLC9w';
+// function joinOnFixScreen(screenToJoin) {
+//     // screenName = screenToJoin;
+//     options = buildOptions(roomName);
+//     // token = 'eyJraWQiOiJ2cGFhcy1tYWdpYy1jb29raWUtMjg1ZDFkMzZiYzdkNGIyZGIyMWMzOTc4YjM0NTEzMjcvMTA5MTRhLVNBTVBMRV9BUFAiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJqaXRzaSIsImV4cCI6MTYxNDQxNTM4OSwibmJmIjoxNjE0NDA4MTg0LCJpc3MiOiJjaGF0Iiwicm9vbSI6IioiLCJzdWIiOiJ2cGFhcy1tYWdpYy1jb29raWUtMjg1ZDFkMzZiYzdkNGIyZGIyMWMzOTc4YjM0NTEzMjciLCJjb250ZXh0Ijp7ImZlYXR1cmVzIjp7ImxpdmVzdHJlYW1pbmciOnRydWUsIm91dGJvdW5kLWNhbGwiOnRydWUsInRyYW5zY3JpcHRpb24iOnRydWUsInJlY29yZGluZyI6dHJ1ZX0sInVzZXIiOnsibW9kZXJhdG9yIjp0cnVlLCJuYW1lIjoiIiwiaWQiOiJnb29nbGUtb2F1dGgyfDEwODAyNDA1MDMxOTg3OTI1NTAwNCIsImF2YXRhciI6IiIsImVtYWlsIjoiaGFyejA5MDFAZ21haWwuY29tIn19fQ.hDTmW3dm5l8MYel_UmPjvPa69teZeVstaDrOiZdn92N9UlQ7zYXVeCmbrlRy0jX5H_9Xf-JgjUnnzJjooX8G2bzY566Y7YOBvKNgaqfM3X8bSEadSNmk6LMjFTGuIapgin_bRJxGhgBLcthbeYVfZ_xGo65-eKbNHDZrugJCzWFfty5l9yvZFsBm0-_KQ6jQZ8oISmRUY4J_Qowlz9BjBhbiLpAkw_gZGXlZnlEZEmkxDmTvqbzecEzQAdaf-PV0xrySa847RKc_hIrrQhttcfi9HGeZrwo05CcdYKKuZolnp6jIkof2bMIxt4YiNQL7CX9XN5vzZZG_yv_viuLC9w';
 
-    connection = new JitsiMeetJS.JitsiConnection(null, token, options.connection);
+//     connection = new JitsiMeetJS.JitsiConnection(null, token, options.connection);
 
-    connection.addEventListener(
-        JitsiMeetJS.events.connection.CONNECTION_ESTABLISHED,
-        onConnectionSuccess);
-    connection.addEventListener(
-        JitsiMeetJS.events.connection.CONNECTION_FAILED,
-        onConnectionFailed);
-    connection.addEventListener(
-        JitsiMeetJS.events.connection.CONNECTION_DISCONNECTED,
-        disconnect);
+//     connection.addEventListener(
+//         JitsiMeetJS.events.connection.CONNECTION_ESTABLISHED,
+//         onConnectionSuccess);
+//     connection.addEventListener(
+//         JitsiMeetJS.events.connection.CONNECTION_FAILED,
+//         onConnectionFailed);
+//     connection.addEventListener(
+//         JitsiMeetJS.events.connection.CONNECTION_DISCONNECTED,
+//         disconnect);
 
-    connection.connect();
+//     connection.connect();
 
-}
+// }
 
 function setFullscreenListener() {
 
@@ -386,4 +400,98 @@ function setFullscreenListener() {
             }
         });
     }
+}
+
+
+
+function gotDevices(mediaDevices) {
+    cameraList = [];
+    micList = [];
+    mediaDevices.forEach(mediaDevice => {
+        console.log(mediaDevice.kind + " : " + mediaDevice.label +
+            "\nDevice ID : " + mediaDevice.deviceId + "\nGroup Id : " + mediaDevice.groupId);
+        if (mediaDevice.kind === 'videoinput') {
+            cameraList.push(mediaDevice);
+        }
+        if (mediaDevice.kind === 'audioinput') {
+            micList.push(mediaDevice);
+        }
+    });
+}
+
+function stopMediaTracks(stream) {
+    stream.getTracks().forEach(track => {
+        track.stop();
+    });
+}
+
+function ChangeCamera() {
+
+    selectedCameraNum++;
+    if (selectedCameraNum > cameraList.length - 1) {
+        selectedCameraNum = 0;
+    }
+
+    console.warn("Camera " + (selectedCameraNum + 1) + " selected from " + cameraList.length + " devices\n" + cameraList[selectedCameraNum].deviceId);
+
+    for (let i = 0; i < localTracks.length; i++) {
+        if (localTracks[i].getType() === 'video') {
+            stopMediaTracks(localTracks[i].stream);
+        }
+    }
+
+    var isFirstTrackRemoved = false;
+    if (localTracks[1] && localTracks[1].getType() === 'video') {
+        localTracks[1].dispose();
+        localTracks.pop();
+    } else if (localTracks[0] && localTracks[0].getType() === 'video') {
+        isFirstTrackRemoved = true;
+        localTracks[0].dispose();
+        localTracks.shift();
+    }
+
+    JitsiMeetJS.createLocalTracks({
+            devices: ['video'],
+            cameraDeviceId: {
+                exact: cameraList[selectedCameraNum].deviceId
+            },
+            facingMode: cameraList[selectedCameraNum].facingMode
+        })
+        .then(tracks => {
+            if (isFirstTrackRemoved) {
+                localTracks.unshift(tracks[0]);
+                localTracks[0].addEventListener(
+                    JitsiMeetJS.events.track.TRACK_MUTE_CHANGED,
+                    () => {
+                        console.warn('camera track muted');
+                    });
+                localTracks[0].addEventListener(
+                    JitsiMeetJS.events.track.LOCAL_TRACK_STOPPED,
+                    () => {
+                        console.warn('camera track stopped');
+                    });
+                localTracks[0].attach($('#localVideo1')[0]);
+                room.addTrack(localTracks[0]);
+            } else {
+                localTracks.push(tracks[0]);
+                localTracks[1].addEventListener(
+                    JitsiMeetJS.events.track.TRACK_MUTE_CHANGED,
+                    () => {
+                        console.warn('camera track muted');
+                    });
+                localTracks[1].addEventListener(
+                    JitsiMeetJS.events.track.LOCAL_TRACK_STOPPED,
+                    () => {
+                        console.warn('camera track stopped');
+                    });
+                localTracks[1].attach($('#localVideo1')[0]);
+                room.addTrack(localTracks[1]);
+            }
+        })
+        .catch(error => {
+            console.error("Camera switching " + error);
+            // SendErrors('Camera Switch ' + error);
+            // ShowToast('Camera not able to change');
+            ChangeCamera();
+        });
 }
