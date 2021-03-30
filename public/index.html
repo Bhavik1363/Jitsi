@@ -75,8 +75,8 @@
     .fullscreen-position {
       position: fixed;
       z-index: 10;
-      right: 25%;
-      top: 40%;
+      right: 22%;
+      top: 42%;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -172,7 +172,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      background-color: #242f3f;
+      background-color: #f1f1f1;;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -266,6 +266,34 @@
       margin: -1px 0 0 -80px;
       color: blanchedalmond;
     }
+       div.well {
+      height: 250px;
+    }
+
+    .Absolute-Center {
+      margin: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+
+    .Absolute-Center.is-Responsive {
+      width: 50%;
+      height: 50%;
+      min-width: 200px;
+      max-width: 400px;
+      padding: 40px;
+    }
+
+    #logo-container {
+      margin: auto;
+      margin-bottom: 10px;
+      width: 200px;
+      height: 30px;
+      /* background-image:url('./merzlogo.png'); */
+    }
 
     /* bouncing balls */
   </style>
@@ -273,15 +301,44 @@
 
 <body>
   <div id="loader-bg" class="loader-wrapper">
-    <div class="spinner">
+    <!--<div class="spinner">
       <div></div>
       <div></div>
     </div>
     <br />
     <label id="lbl-1" style="display: none; margin-top: 10px; text-align: center;">Enter Event Button to Join!</label>
     <button onclick="onbtnclick();" id="btn-1" class="btn btn-primary" style="display: none; margin-top: 50px; ">Enter
-      Event</button>
-
+      Event</button>-->
+<div class="container">
+    <div class="row">
+      <div class="Absolute-Center is-Responsive">
+        <div id="logo-container"><img src="./merzlogo.png" alt="logo" style="width: 200px;" /> </div>
+        <div class="col-sm-12 col-md-10 col-md-offset-1" style="margin: 25px auto;">
+          <form action="" id="loginForm">
+            <div class="form-group input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+              <input class="form-control" type="text" id="username" name='username' placeholder="username" />
+            </div>
+            <div class="form-group input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+              <input class="form-control" type="password" id="password" name='password' placeholder="password" />
+            </div>
+            <!-- <div class="checkbox">
+                  <label>
+                    <input type="checkbox"> I agree to the <a href="#">Terms and Conditions</a>
+                  </label>
+                </div> -->
+            <div class="form-group">
+              <button type="button" id="login-submit" class="btn btn-def btn-block" onclick="login();">Login</button>
+            </div>
+            <!-- <div class="form-group text-center">
+                  <a href="#">Forgot Password</a>&nbsp;|&nbsp;<a href="#">Support</a>
+                </div> -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
   <!-- <div id="btnwrapper" class="wrapper">
    
@@ -306,7 +363,7 @@
       Rotate your device to join Breakout Room
     </p>
   </div>
-  <img id='breakout2dimg' src="webinar.jpg" class="Breakout2dImg" onload="loadImage()"></img>
+  <img id='breakout2dimg' src="webinar.jpg" class="Breakout2dImg"></img>
   <!-- <form class="form-horizontal">
         <fieldset>
         <div class="form-group">
@@ -377,8 +434,11 @@
       joinOnFixScreen(screenToJoin);
     }
 
-    function onbtnclick() {
-      document.getElementById("loader-bg").style.display = "none";
+    function login() {
+      username = document.getElementById('username').value;
+      password = document.getElementById('password').value;
+      if(username == "visitor" && password=="123456"){
+        document.getElementById("loader-bg").style.display = "none";
       // document.getElementById("my-video").autoplay;
       let videoelem = videojs("my-video")
       if (videoelem) {
@@ -387,6 +447,10 @@
         videoelem.play()
       } else {
         console.log("video not found")
+      }
+      }
+      else{
+        alert("User Details Not Found");
       }
     }
     // function setFullscreenListener(){
@@ -449,8 +513,9 @@
     // });
     // }
     function loadImage() {
-      document.getElementById("btn-1").style.display = "block";
-      document.getElementById("lbl-1").style.display = "block";
+
+      // document.getElementById("btn-1").style.display = "block";
+      // document.getElementById("lbl-1").style.display = "block";
     }
 
     function fullscreenVideo() {
